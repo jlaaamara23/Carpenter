@@ -1,355 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meridian Joinery — Custom Woodwork & Architectural Joinery</title>
+    <title>מרידיאן נגרייה — מטבחים וארונות בהתאמה אישית</title>
     <meta
       name="description"
-      content="Portfolio of bespoke wooden kitchens, walk-in closets, and architectural woodwork. Craftsmanship without compromise."
+      content="תיק עבודות של מטבחי עץ, חדרי הלבשה ונגרות אדריכלית. ללא מחירים."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Sora:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main" data-i18n="skip">דלג לתוכן</a>
 
     <header class="site-header" data-header>
       <div class="site-header__inner">
-        <a class="logo" href="#top" aria-label="Meridian Joinery home">
+        <a class="logo" href="#top">
           <span class="logo__mark" aria-hidden="true"></span>
-          Meridian
+          <span data-i18n="brandShort">מרידיאן</span>
         </a>
-        <nav class="nav" aria-label="Primary">
-          <a href="#portfolio">Portfolio</a>
-          <a href="#process">Process</a>
-          <a href="#materials">Materials</a>
-          <a href="#consult" class="nav__cta">Consultation</a>
-        </nav>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="mobile-nav"
-          data-nav-toggle
-        >
-          <span class="sr-only">Menu</span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </button>
+        <div class="header-tools">
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" class="lang-switch__btn is-active" data-set-lang="he">עברית</button>
+            <button type="button" class="lang-switch__btn" data-set-lang="ar">العربية</button>
+          </div>
+          <nav class="nav" aria-label="Primary">
+            <a href="#portfolio" data-i18n="navPortfolio">תיק עבודות</a>
+            <a href="#process" data-i18n="navProcess">תהליך</a>
+            <a href="#materials" data-i18n="navMaterials">חומרים</a>
+            <a href="#consult" class="nav__cta" data-i18n="navConsult">ייעוץ</a>
+          </nav>
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            data-nav-toggle
+          >
+            <span class="sr-only" data-i18n="menu">תפריט</span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
       <nav id="mobile-nav" class="mobile-nav" data-mobile-nav hidden>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#process">Process</a>
-        <a href="#materials">Materials</a>
-        <a href="#consult">Request Consultation</a>
+        <a href="#portfolio" data-i18n="navPortfolio">תיק עבודות</a>
+        <a href="#process" data-i18n="navProcess">תהליך</a>
+        <a href="#materials" data-i18n="navMaterials">חומרים</a>
+        <a href="#consult" data-i18n="navConsult">ייעוץ</a>
       </nav>
     </header>
 
     <main id="main">
-      <section class="hero" id="top" aria-labelledby="hero-brand">
+      <section class="hero" id="top">
         <div class="hero__media" aria-hidden="true">
-          <img
-            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=85"
-            alt=""
-            width="2400"
-            height="1350"
-            fetchpriority="high"
-          />
+          <img data-hero-image src="" alt="" width="2400" height="1350" fetchpriority="high" />
           <div class="hero__veil"></div>
         </div>
         <div class="hero__content">
-          <p class="hero__brand" id="hero-brand">Meridian Joinery</p>
-          <h1 class="hero__title">
-            Crafting Elegance in Wood — Custom Joinery &amp; Architectural
-            Woodwork
-          </h1>
-          <p class="hero__lede">
-            Explore our portfolio of bespoke furniture, integrated storage, and
-            modern interior wooden solutions.
-          </p>
+          <p class="hero__brand" data-i18n="brand">מרידיאן נגרייה</p>
+          <h1 class="hero__title" data-i18n="heroTitle"></h1>
+          <p class="hero__lede" data-i18n="heroLede"></p>
           <div class="hero__actions">
-            <a class="btn btn--primary" href="#portfolio">View Our Portfolio</a>
-            <a class="btn btn--ghost" href="#consult"
-              >Request a Custom Consultation</a
-            >
+            <a class="btn btn--primary" href="#portfolio" data-i18n="ctaPortfolio"></a>
+            <a class="btn btn--ghost" href="#consult" data-i18n="ctaConsult"></a>
           </div>
         </div>
       </section>
 
-      <section class="section featured" id="featured" aria-labelledby="featured-heading">
+      <section class="section featured" id="featured">
         <div class="section__intro">
-          <p class="eyebrow">Selected Work</p>
-          <h2 id="featured-heading">Featured Projects</h2>
-          <p>
-            Recently completed commissions defined by precise joinery, quiet
-            surfaces, and lasting material presence.
-          </p>
+          <p class="eyebrow" data-i18n="featuredEyebrow"></p>
+          <h2 data-i18n="featuredTitle"></h2>
+          <p data-i18n="featuredLede"></p>
         </div>
-        <div class="featured__grid">
-          <a
-            class="project-tile"
-            href="#project-kitchen"
-            data-category="kitchens"
-            style="--i: 0"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=1400&q=80"
-              alt="Warm oak kitchen with clean horizontal cabinetry and stone counters"
-              width="1400"
-              height="1000"
-              loading="lazy"
-            />
-            <div class="project-tile__meta">
-              <h3>Modern Minimalist Kitchen</h3>
-              <p><span>Custom Kitchens</span> · <span>2025</span></p>
-            </div>
-          </a>
-          <a
-            class="project-tile"
-            href="#project-closet"
-            data-category="wardrobes"
-            style="--i: 1"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=80"
-              alt="Walk-in closet with soft LED lighting and walnut shelving"
-              width="1400"
-              height="1000"
-              loading="lazy"
-            />
-            <div class="project-tile__meta">
-              <h3>Walk-in Closet &amp; LED Dressing Room</h3>
-              <p><span>Wardrobes &amp; Closets</span> · <span>2025</span></p>
-            </div>
-          </a>
-          <a
-            class="project-tile"
-            href="#project-cladding"
-            data-category="cladding"
-            style="--i: 2"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1400&q=80"
-              alt="Architectural oak wall cladding in a contemporary living space"
-              width="1400"
-              height="1000"
-              loading="lazy"
-            />
-            <div class="project-tile__meta">
-              <h3>Architectural Oak Wall Cladding</h3>
-              <p><span>Wall Cladding &amp; TV Units</span> · <span>2024</span></p>
-            </div>
-          </a>
-          <a
-            class="project-tile"
-            href="#project-hidden"
-            data-category="furniture"
-            style="--i: 3"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1400&q=80"
-              alt="Concealed storage and flush paneling along a hallway"
-              width="1400"
-              height="1000"
-              loading="lazy"
-            />
-            <div class="project-tile__meta">
-              <h3>Hidden Concealed Doors &amp; Storage</h3>
-              <p><span>Custom Furniture</span> · <span>2024</span></p>
-            </div>
-          </a>
-        </div>
+        <div class="featured__grid" data-featured-grid></div>
       </section>
 
-      <section class="section gallery" id="portfolio" aria-labelledby="gallery-heading">
-        <div class="section__intro section__intro--row">
-          <div>
-            <p class="eyebrow">Archive</p>
-            <h2 id="gallery-heading">Interactive Project Gallery</h2>
-            <p>
-              Filter by typology. Every commission is documented without prices —
-              only craft, material, and form.
-            </p>
-          </div>
+      <section class="section gallery" id="portfolio">
+        <div class="section__intro">
+          <p class="eyebrow" data-i18n="galleryEyebrow"></p>
+          <h2 data-i18n="galleryTitle"></h2>
+          <p data-i18n="galleryLede"></p>
         </div>
-
-        <div
-          class="filters"
-          role="tablist"
-          aria-label="Filter projects by category"
-          data-filters
-        >
-          <button type="button" class="filter is-active" role="tab" aria-selected="true" data-filter="all">
-            All
-          </button>
-          <button type="button" class="filter" role="tab" aria-selected="false" data-filter="kitchens">
-            Custom Kitchens
-          </button>
-          <button type="button" class="filter" role="tab" aria-selected="false" data-filter="wardrobes">
-            Wardrobes &amp; Closets
-          </button>
-          <button type="button" class="filter" role="tab" aria-selected="false" data-filter="cladding">
-            Wall Cladding &amp; TV Units
-          </button>
-          <button type="button" class="filter" role="tab" aria-selected="false" data-filter="office">
-            Office &amp; Commercial
-          </button>
-          <button type="button" class="filter" role="tab" aria-selected="false" data-filter="furniture">
-            Custom Furniture
-          </button>
+        <div class="filters" role="tablist" data-filters>
+          <button type="button" class="filter is-active" data-filter="all" data-i18n="filterAll"></button>
+          <button type="button" class="filter" data-filter="kitchens" data-i18n="filterKitchens"></button>
+          <button type="button" class="filter" data-filter="wardrobes" data-i18n="filterWardrobes"></button>
+          <button type="button" class="filter" data-filter="cladding" data-i18n="filterCladding"></button>
+          <button type="button" class="filter" data-filter="office" data-i18n="filterOffice"></button>
+          <button type="button" class="filter" data-filter="furniture" data-i18n="filterFurniture"></button>
         </div>
-
-        <div class="gallery__grid" data-gallery>
-          <article class="gallery-item" data-category="kitchens" id="project-kitchen">
-            <button type="button" class="gallery-item__open" data-open="kitchen">
-              <img
-                src="https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1200&q=80"
-                alt="Bespoke kitchen in smoked oak with integrated appliances"
-                width="1200"
-                height="900"
-                loading="lazy"
-              />
-              <div class="gallery-item__caption">
-                <h3>Smoked Oak Galley</h3>
-                <p>Custom Kitchens · 2025</p>
-              </div>
-            </button>
-          </article>
-          <article class="gallery-item" data-category="wardrobes" id="project-closet">
-            <button type="button" class="gallery-item__open" data-open="closet">
-              <img
-                src="https://images.unsplash.com/photo-1556020685-ae97dea0ea4b?auto=format&fit=crop&w=1200&q=80"
-                alt="Dressing room with floor-to-ceiling walnut wardrobes"
-                width="1200"
-                height="900"
-                loading="lazy"
-              />
-              <div class="gallery-item__caption">
-                <h3>Walnut Dressing Suite</h3>
-                <p>Wardrobes &amp; Closets · 2025</p>
-              </div>
-            </button>
-          </article>
-          <article class="gallery-item" data-category="cladding" id="project-cladding">
-            <button type="button" class="gallery-item__open" data-open="cladding">
-              <img
-                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80"
-                alt="Vertical oak slat wall behind a media unit"
-                width="1200"
-                height="900"
-                loading="lazy"
-              />
-              <div class="gallery-item__caption">
-                <h3>Ribbon Oak Media Wall</h3>
-                <p>Wall Cladding &amp; TV Units · 2024</p>
-              </div>
-            </button>
-          </article>
-          <article class="gallery-item" data-category="office">
-            <button type="button" class="gallery-item__open" data-open="office">
-              <img
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
-                alt="Commercial boardroom with continuous timber millwork"
-                width="1200"
-                height="900"
-                loading="lazy"
-              />
-              <div class="gallery-item__caption">
-                <h3>Boardroom Millwork</h3>
-                <p>Office &amp; Commercial · 2024</p>
-              </div>
-            </button>
-          </article>
-          <article class="gallery-item" data-category="furniture" id="project-hidden">
-            <button type="button" class="gallery-item__open" data-open="furniture">
-              <img
-                src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=1200&q=80"
-                alt="Custom timber console with precise dovetail joinery detail"
-                width="1200"
-                height="900"
-                loading="lazy"
-              />
-              <div class="gallery-item__caption">
-                <h3>Dovetail Console</h3>
-                <p>Custom Furniture · 2023</p>
-              </div>
-            </button>
-          </article>
-          <article class="gallery-item" data-category="kitchens">
-            <button type="button" class="gallery-item__open" data-open="island">
-              <img
-                src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
-                alt="Kitchen island in natural oak with waterfall edges"
-                width="1200"
-                height="900"
-                loading="lazy"
-              />
-              <div class="gallery-item__caption">
-                <h3>Waterfall Island Kitchen</h3>
-                <p>Custom Kitchens · 2023</p>
-              </div>
-            </button>
-          </article>
-        </div>
+        <div class="gallery__grid" data-gallery></div>
       </section>
 
-      <dialog class="project-dialog" data-dialog aria-labelledby="dialog-title">
+      <dialog class="project-dialog" data-dialog>
         <div class="project-dialog__inner">
-          <button type="button" class="project-dialog__close" data-dialog-close aria-label="Close project">
-            Close
-          </button>
+          <button type="button" class="project-dialog__close" data-dialog-close data-i18n="close"></button>
           <div class="project-dialog__gallery">
             <div class="ba" data-ba>
-              <img
-                class="ba__after"
-                data-dialog-after
-                src=""
-                alt="Finished project"
-                width="1600"
-                height="1000"
-              />
-              <img
-                class="ba__before"
-                data-dialog-before
-                src=""
-                alt="Project before installation"
-                width="1600"
-                height="1000"
-              />
+              <img class="ba__after" data-dialog-after src="" alt="" width="1600" height="1000" />
+              <img class="ba__before" data-dialog-before src="" alt="" width="1600" height="1000" />
               <label class="ba__control">
-                <span class="sr-only">Before and after comparison</span>
+                <span class="sr-only">Before / After</span>
                 <input type="range" min="0" max="100" value="50" data-ba-range />
               </label>
-              <span class="ba__label ba__label--before">Before</span>
-              <span class="ba__label ba__label--after">After</span>
+              <span class="ba__label ba__label--before" data-i18n="before"></span>
+              <span class="ba__label ba__label--after" data-i18n="after"></span>
             </div>
             <div class="macro-row" data-dialog-macros></div>
           </div>
           <div class="project-dialog__body">
             <p class="eyebrow" data-dialog-category></p>
-            <h2 id="dialog-title" data-dialog-title></h2>
+            <h2 data-dialog-title></h2>
             <p data-dialog-copy></p>
             <dl class="specs">
               <div>
-                <dt>Material</dt>
+                <dt data-i18n="material"></dt>
                 <dd data-dialog-material></dd>
               </div>
               <div>
-                <dt>Finish</dt>
+                <dt data-i18n="finish"></dt>
                 <dd data-dialog-finish></dd>
               </div>
               <div>
-                <dt>Hardware</dt>
+                <dt data-i18n="hardware"></dt>
                 <dd data-dialog-hardware></dd>
               </div>
               <div>
-                <dt>Style</dt>
+                <dt data-i18n="style"></dt>
                 <dd data-dialog-style></dd>
               </div>
             </dl>
@@ -357,137 +142,115 @@
         </div>
       </dialog>
 
-      <section class="section process" id="process" aria-labelledby="process-heading">
+      <section class="section process" id="process">
         <div class="section__intro">
-          <p class="eyebrow">Method</p>
-          <h2 id="process-heading">Our Process &amp; Craftsmanship</h2>
-          <p>
-            A measured path from first conversation to finished installation —
-            designed for clarity, not spectacle.
-          </p>
+          <p class="eyebrow" data-i18n="processEyebrow"></p>
+          <h2 data-i18n="processTitle"></h2>
+          <p data-i18n="processLede"></p>
         </div>
         <ol class="timeline" data-timeline>
           <li style="--i: 0">
             <span class="timeline__index">01</span>
-            <h3>Consultation &amp; 3D Design</h3>
-            <p>
-              Site review, spatial planning, and photoreal concepts that lock
-              proportions before a single board is cut.
-            </p>
+            <h3 data-i18n="step1Title"></h3>
+            <p data-i18n="step1Copy"></p>
           </li>
           <li style="--i: 1">
             <span class="timeline__index">02</span>
-            <h3>Material Selection</h3>
-            <p>
-              Veneers, solids, and lacquer samples studied under your light —
-              grain direction matched to the architecture.
-            </p>
+            <h3 data-i18n="step2Title"></h3>
+            <p data-i18n="step2Copy"></p>
           </li>
           <li style="--i: 2">
             <span class="timeline__index">03</span>
-            <h3>Precision Workshop Fabrication</h3>
-            <p>
-              CNC accuracy paired with hand-fit joinery. Every panel, edge, and
-              reveal is checked against the drawing set.
-            </p>
+            <h3 data-i18n="step3Title"></h3>
+            <p data-i18n="step3Copy"></p>
           </li>
           <li style="--i: 3">
             <span class="timeline__index">04</span>
-            <h3>On-site Professional Installation</h3>
-            <p>
-              Protected delivery, level lines, and silent hardware tuning until
-              doors close with the weight they should.
-            </p>
+            <h3 data-i18n="step4Title"></h3>
+            <p data-i18n="step4Copy"></p>
           </li>
         </ol>
       </section>
 
-      <section class="section materials" id="materials" aria-labelledby="materials-heading">
+      <section class="section materials" id="materials">
         <div class="section__intro">
-          <p class="eyebrow">Palette</p>
-          <h2 id="materials-heading">Materials &amp; Wood Finishes</h2>
-          <p>
-            An educational showcase of the surfaces we work with most —
-            from open-pore oak to satin lacquered MDF.
-          </p>
+          <p class="eyebrow" data-i18n="materialsEyebrow"></p>
+          <h2 data-i18n="materialsTitle"></h2>
+          <p data-i18n="materialsLede"></p>
         </div>
         <div class="swatches">
           <figure class="swatch">
             <div class="swatch__chip swatch__chip--oak" aria-hidden="true"></div>
             <figcaption>
-              <h3>European Oak</h3>
-              <p>Solid &amp; veneer · warm grain, durable under daily use</p>
+              <h3 data-i18n="swatchOak"></h3>
+              <p data-i18n="swatchOakCopy"></p>
             </figcaption>
           </figure>
           <figure class="swatch">
             <div class="swatch__chip swatch__chip--walnut" aria-hidden="true"></div>
             <figcaption>
-              <h3>American Walnut</h3>
-              <p>Rich chocolate tones · ideal for wardrobes &amp; feature walls</p>
+              <h3 data-i18n="swatchWalnut"></h3>
+              <p data-i18n="swatchWalnutCopy"></p>
             </figcaption>
           </figure>
           <figure class="swatch">
             <div class="swatch__chip swatch__chip--smoked" aria-hidden="true"></div>
             <figcaption>
-              <h3>Smoked Oak</h3>
-              <p>Deep charcoal warmth · modern kitchens &amp; cladding</p>
+              <h3 data-i18n="swatchSmoked"></h3>
+              <p data-i18n="swatchSmokedCopy"></p>
             </figcaption>
           </figure>
           <figure class="swatch">
             <div class="swatch__chip swatch__chip--lacquer" aria-hidden="true"></div>
             <figcaption>
-              <h3>Lacquered MDF</h3>
-              <p>Matte &amp; satin shades · seamless colour-matched fronts</p>
+              <h3 data-i18n="swatchLacquer"></h3>
+              <p data-i18n="swatchLacquerCopy"></p>
             </figcaption>
           </figure>
           <figure class="swatch">
             <div class="swatch__chip swatch__chip--hardware" aria-hidden="true"></div>
             <figcaption>
-              <h3>Premium Hardware</h3>
-              <p>BLUM · Häfele · soft-close mechanisms built to last</p>
+              <h3 data-i18n="swatchHardware"></h3>
+              <p data-i18n="swatchHardwareCopy"></p>
             </figcaption>
           </figure>
           <figure class="swatch">
             <div class="swatch__chip swatch__chip--ash" aria-hidden="true"></div>
             <figcaption>
-              <h3>White Ash</h3>
-              <p>Pale, lively figure · bright interiors &amp; office millwork</p>
+              <h3 data-i18n="swatchAsh"></h3>
+              <p data-i18n="swatchAshCopy"></p>
             </figcaption>
           </figure>
         </div>
       </section>
 
-      <section class="section consult" id="consult" aria-labelledby="consult-heading">
+      <section class="section consult" id="consult">
         <div class="consult__layout">
           <div class="consult__intro">
-            <p class="eyebrow">Begin</p>
-            <h2 id="consult-heading">Have a Project in Mind?</h2>
-            <p>
-              Share a few details and we will arrange a custom consultation.
-              Portfolio inquiries only — no pricing listed on this site.
-            </p>
+            <p class="eyebrow" data-i18n="consultEyebrow"></p>
+            <h2 data-i18n="consultTitle"></h2>
+            <p data-i18n="consultLede"></p>
             <div class="consult__direct">
               <a
                 class="btn btn--whatsapp"
                 href="https://wa.me/15551234567"
                 target="_blank"
                 rel="noopener noreferrer"
-              >
-                WhatsApp Quick Chat
-              </a>
+                data-i18n="whatsapp"
+              ></a>
               <div class="consult__meta">
                 <p>
-                  <strong>Workshop</strong><br />
-                  184 Timber Yard, River District
+                  <strong data-i18n="workshop"></strong><br />
+                  <span data-i18n="workshopAddr"></span>
                 </p>
                 <p>
-                  <strong>Hours</strong><br />
-                  Mon–Fri 08:00–17:30 · Sat by appointment
+                  <strong data-i18n="hours"></strong><br />
+                  <span data-i18n="hoursVal"></span>
                 </p>
               </div>
-              <div class="map" aria-label="Workshop location map placeholder">
+              <div class="map">
                 <iframe
-                  title="Workshop location"
+                  title="map"
                   loading="lazy"
                   referrerpolicy="no-referrer-when-downgrade"
                   src="https://maps.google.com/maps?q=woodworking%20workshop&t=&z=13&ie=UTF8&iwloc=&output=embed"
@@ -498,39 +261,42 @@
 
           <form class="consult-form" data-form novalidate>
             <div class="field">
-              <label for="name">Full Name</label>
+              <label for="name" data-i18n="labelName"></label>
               <input id="name" name="name" type="text" autocomplete="name" required />
             </div>
             <div class="field">
-              <label for="phone">Phone Number</label>
+              <label for="phone" data-i18n="labelPhone"></label>
               <input id="phone" name="phone" type="tel" autocomplete="tel" required />
             </div>
             <div class="field">
-              <label for="city">City / Project Location</label>
-              <input id="city" name="city" type="text" autocomplete="address-level2" required />
+              <label for="city" data-i18n="labelCity"></label>
+              <input id="city" name="city" type="text" required />
             </div>
             <div class="field">
-              <label for="type">Project Type</label>
+              <label for="type" data-i18n="labelType"></label>
               <select id="type" name="type" required>
-                <option value="">Select a type</option>
-                <option>Custom Kitchen</option>
-                <option>Wardrobe / Walk-in Closet</option>
-                <option>Wall Cladding / TV Unit</option>
-                <option>Office &amp; Commercial</option>
-                <option>Custom Furniture</option>
-                <option>Other / Mixed</option>
+                <option value="" data-i18n="typePlaceholder"></option>
+                <option value="kitchen" data-i18n="typeKitchen"></option>
+                <option value="wardrobe" data-i18n="typeWardrobe"></option>
+                <option value="cladding" data-i18n="typeCladding"></option>
+                <option value="office" data-i18n="typeOffice"></option>
+                <option value="furniture" data-i18n="typeFurniture"></option>
+                <option value="other" data-i18n="typeOther"></option>
               </select>
             </div>
             <div class="field">
-              <label for="files">Architectural Blueprints or Site Photos</label>
+              <label for="files" data-i18n="labelFiles"></label>
               <input id="files" name="files" type="file" accept="image/*,.pdf" multiple />
-              <p class="field__hint">Optional — PDF or images up to 20MB each.</p>
+              <p class="field__hint" data-i18n="fileHint"></p>
             </div>
             <div class="field">
-              <label for="message">Message <span class="optional">(optional)</span></label>
+              <label for="message"
+                ><span data-i18n="labelMessage"></span>
+                <span class="optional" data-i18n="optional"></span
+              ></label>
               <textarea id="message" name="message" rows="4"></textarea>
             </div>
-            <button class="btn btn--primary" type="submit">Request Consultation</button>
+            <button class="btn btn--primary" type="submit" data-i18n="submit"></button>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -539,12 +305,17 @@
 
     <footer class="site-footer">
       <div class="site-footer__inner">
-        <p class="logo">Meridian</p>
-        <p>Portfolio only · No prices · Bespoke joinery since 2009</p>
-        <p class="site-footer__fine">&copy; <span data-year></span> Meridian Joinery</p>
+        <p class="logo" data-i18n="brandShort"></p>
+        <p data-i18n="footerNote"></p>
+        <p class="site-footer__fine">
+          &copy; <span data-year></span> <span data-i18n="footerCopy"></span>
+        </p>
+        <p class="site-footer__admin">
+          <a href="admin.html">ניהול תמונות / إدارة الصور</a>
+        </p>
       </div>
     </footer>
 
-    <script src="main.js" type="module"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>

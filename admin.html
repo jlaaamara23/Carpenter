@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ניהול תמונות | إدارة الصور — מרידיאן</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-page">
+    <header class="admin-bar">
+      <a href="index.html">← חזרה לאתר / العودة للموقع</a>
+      <div class="lang-switch" role="group">
+        <button type="button" class="lang-switch__btn is-active" data-set-lang="he">עברית</button>
+        <button type="button" class="lang-switch__btn" data-set-lang="ar">العربية</button>
+      </div>
+    </header>
+
+    <main class="admin-wrap">
+      <section class="admin-card" data-gate>
+        <h1 data-admin="loginTitle">כניסה לניהול</h1>
+        <p data-admin="loginHint">סיסמה ברירת מחדל: <code>meridian</code></p>
+        <form class="admin-login" data-login>
+          <label>
+            <span data-admin="passwordLabel">סיסמה</span>
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <button class="btn btn--primary" type="submit" data-admin="loginBtn">כניסה</button>
+          <p class="form-status" data-login-status></p>
+        </form>
+      </section>
+
+      <div class="admin-app" data-app hidden>
+        <header class="admin-hero">
+          <h1 data-admin="title">ניהול תמונות ופרויקטים</h1>
+          <p data-admin="subtitle">
+            העלו תמונות מהטלפון או מהמחשב. השינויים נשמרים במכשיר זה ומוצגים באתר מיד.
+          </p>
+        </header>
+
+        <section class="admin-card">
+          <h2 data-admin="heroSection">תמונת פתיחה (Hero)</h2>
+          <div class="admin-hero-preview">
+            <img data-hero-preview src="" alt="" />
+          </div>
+          <label class="btn btn--ghost file-btn">
+            <span data-admin="uploadHero">העלאת תמונת פתיחה</span>
+            <input type="file" accept="image/*" data-hero-file hidden />
+          </label>
+        </section>
+
+        <section class="admin-card">
+          <div class="admin-card__head">
+            <h2 data-admin="projectsSection">פרויקטים בגלריה</h2>
+            <button type="button" class="btn btn--primary" data-add-project data-admin="addProject">
+              + פרויקט חדש
+            </button>
+          </div>
+          <div class="admin-list" data-project-list></div>
+        </section>
+
+        <section class="admin-card">
+          <div class="admin-card__head">
+            <h2 data-admin="featuredSection">פרויקטים מובילים</h2>
+            <button type="button" class="btn btn--ghost" data-add-featured data-admin="addFeatured">
+              + פריט מוביל
+            </button>
+          </div>
+          <div class="admin-list" data-featured-list></div>
+        </section>
+
+        <section class="admin-card admin-actions">
+          <button type="button" class="btn btn--ghost" data-export data-admin="exportBtn">
+            ייצוא גיבוי
+          </button>
+          <label class="btn btn--ghost file-btn">
+            <span data-admin="importBtn">ייבוא גיבוי</span>
+            <input type="file" accept="application/json,.json" data-import hidden />
+          </label>
+          <button type="button" class="btn btn--ghost" data-reset data-admin="resetBtn">
+            איפוס לברירת מחדל
+          </button>
+          <p class="admin-note" data-admin="persistNote"></p>
+        </section>
+      </div>
+    </main>
+
+    <dialog class="admin-dialog" data-edit-dialog>
+      <form class="admin-edit" data-edit-form>
+        <h2 data-admin="editTitle">עריכת פרויקט</h2>
+        <input type="hidden" name="id" />
+        <input type="hidden" name="kind" />
+
+        <div class="field">
+          <label data-admin="titleHe">כותרת בעברית</label>
+          <input name="titleHe" required />
+        </div>
+        <div class="field">
+          <label data-admin="titleAr">العنوان بالعربية</label>
+          <input name="titleAr" required />
+        </div>
+        <div class="field">
+          <label data-admin="yearLabel">שנה / السنة</label>
+          <input name="year" required />
+        </div>
+        <div class="field">
+          <label data-admin="categoryLabel">קטגוריה / الفئة</label>
+          <select name="category" required>
+            <option value="kitchens">מטבחים / مطابخ</option>
+            <option value="wardrobes">ארונות / خزائن</option>
+            <option value="cladding">חיפויים / كسوة</option>
+            <option value="office">משרד / مكاتب</option>
+            <option value="furniture">רהיטים / أثاث</option>
+          </select>
+        </div>
+
+        <div class="admin-project-fields">
+          <div class="field">
+            <label data-admin="copyHe">תיאור בעברית</label>
+            <textarea name="copyHe" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label data-admin="copyAr">الوصف بالعربية</label>
+            <textarea name="copyAr" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label data-admin="materialHe">חומר (עברית)</label>
+            <input name="materialHe" />
+          </div>
+          <div class="field">
+            <label data-admin="materialAr">المادة (عربي)</label>
+            <input name="materialAr" />
+          </div>
+          <div class="field">
+            <label data-admin="finishHe">גימור (עברית)</label>
+            <input name="finishHe" />
+          </div>
+          <div class="field">
+            <label data-admin="finishAr">التشطيب (عربي)</label>
+            <input name="finishAr" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label data-admin="mainPhoto">תמונה ראשית</label>
+          <div class="admin-thumb-row">
+            <img data-edit-image src="" alt="" />
+            <label class="btn btn--ghost file-btn">
+              <span data-admin="choosePhoto">בחירת תמונה</span>
+              <input type="file" accept="image/*" name="imageFile" hidden />
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-project-fields field">
+          <label data-admin="beforePhoto">תמונת לפני (אופציונלי)</label>
+          <div class="admin-thumb-row">
+            <img data-edit-before src="" alt="" />
+            <label class="btn btn--ghost file-btn">
+              <span data-admin="choosePhoto">בחירת תמונה</span>
+              <input type="file" accept="image/*" name="beforeFile" hidden />
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-dialog__actions">
+          <button type="button" class="btn btn--ghost" data-cancel data-admin="cancel">ביטול</button>
+          <button type="submit" class="btn btn--primary" data-admin="save">שמירה</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="admin.js"></script>
+  </body>
+</html>

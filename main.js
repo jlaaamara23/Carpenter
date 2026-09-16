@@ -1,140 +1,165 @@
-const projects = {
-  kitchen: {
-    title: "Smoked Oak Galley",
-    category: "Custom Kitchens",
-    copy:
-      "A continuous run of smoked oak fronts with recessed pulls and a quiet stone worktop. Macro details capture the open-pore finish and flush appliance integration.",
-    material: "Smoked European Oak veneer over birch ply",
-    finish: "Oil-wax, matte · charcoal undertone",
-    hardware: "BLUM LEGRABOX · tip-on",
-    style: "Modern",
-    before:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80",
-    after:
-      "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1600&q=80",
-    macros: [
-      "https://images.unsplash.com/photo-1615876234480-1fb628d0e2b5?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80",
-    ],
-  },
-  closet: {
-    title: "Walnut Dressing Suite",
-    category: "Wardrobes & Closets",
-    copy:
-      "Floor-to-ceiling walnut volumes with LED-washed niches and soft-close wardrobe carcasses. Designed for calm mornings and exacting storage.",
-    material: "American Walnut solid & veneer",
-    finish: "Natural oil, low sheen",
-    hardware: "Häfele freetrack · BLUM soft-close",
-    style: "Modern",
-    before:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1600&q=80",
-    after:
-      "https://images.unsplash.com/photo-1556020685-ae97dea0ea4b?auto=format&fit=crop&w=1600&q=80",
-    macros: [
-      "https://images.unsplash.com/photo-1615876234480-1fb628d0e2b5?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=600&q=80",
-    ],
-  },
-  cladding: {
-    title: "Ribbon Oak Media Wall",
-    category: "Wall Cladding & TV Units",
-    copy:
-      "Vertical oak ribbons conceal a media bay and acoustic backing. Grain continuity across panels was matched from a single veneer flitch.",
-    material: "Quarter-sawn European Oak",
-    finish: "Hardwax oil, natural",
-    hardware: "Häfele push-to-open · integrated cable chase",
-    style: "Modern / Architectural",
-    before:
-      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=80",
-    after:
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80",
-    macros: [
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1615876234480-1fb628d0e2b5?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=600&q=80",
-    ],
-  },
-  office: {
-    title: "Boardroom Millwork",
-    category: "Office & Commercial",
-    copy:
-      "Continuous timber cladding and a monolithic conference table for a private boardroom — acoustically quiet, visually calm.",
-    material: "White Ash veneer & solid edge",
-    finish: "Satin clear lacquer",
-    hardware: "Häfele Connect · concealed fasteners",
-    style: "Contemporary Classic",
-    before:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80",
-    after:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80",
-    macros: [
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=600&q=80",
-    ],
-  },
-  furniture: {
-    title: "Dovetail Console",
-    category: "Custom Furniture",
-    copy:
-      "A freestanding console with through-dovetails and a floating drawer box — workshop furniture scaled for residential interiors.",
-    material: "Solid walnut & ash secondary",
-    finish: "Hand-rubbed oil",
-    hardware: "Custom brass pulls · BLUM tandem",
-    style: "Modern Craft",
-    before:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80",
-    after:
-      "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=1600&q=80",
-    macros: [
-      "https://images.unsplash.com/photo-1615876234480-1fb628d0e2b5?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80",
-    ],
-  },
-  island: {
-    title: "Waterfall Island Kitchen",
-    category: "Custom Kitchens",
-    copy:
-      "A waterfall oak island anchors an open-plan kitchen, with integrated seating and fully pocketed appliance housings.",
-    material: "Natural oak veneer & solid waterfall edges",
-    finish: "UV oil, soft matte",
-    hardware: "BLUM AVENTOS · SERVO-DRIVE",
-    style: "Modern",
-    before:
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=80",
-    after:
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1600&q=80",
-    macros: [
-      "https://images.unsplash.com/photo-1556912173-46c336c7fd55?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80",
-      "https://images.unsplash.com/photo-1615876234480-1fb628d0e2b5?auto=format&fit=crop&w=600&q=80",
-    ],
-  },
-};
+import {
+  LANG_KEY,
+  loadContent,
+  strings,
+  localized,
+} from "./i18n.js";
 
 const header = document.querySelector("[data-header]");
 const navToggle = document.querySelector("[data-nav-toggle]");
 const mobileNav = document.querySelector("[data-mobile-nav]");
 const filters = document.querySelector("[data-filters]");
 const gallery = document.querySelector("[data-gallery]");
+const featuredGrid = document.querySelector("[data-featured-grid]");
 const dialog = document.querySelector("[data-dialog]");
 const timeline = document.querySelector("[data-timeline]");
 const form = document.querySelector("[data-form]");
 const formStatus = document.querySelector("[data-form-status]");
 const year = document.querySelector("[data-year]");
 
-if (year) {
-  year.textContent = String(new Date().getFullYear());
+let lang = localStorage.getItem(LANG_KEY) || "he";
+let content = loadContent();
+let activeFilter = "all";
+let currentProjects = [];
+
+if (year) year.textContent = String(new Date().getFullYear());
+
+function applyStrings() {
+  const s = strings[lang];
+  document.documentElement.lang = s.lang;
+  document.documentElement.dir = s.dir;
+  document.documentElement.dataset.lang = lang;
+  document.title = s.metaTitle;
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta) meta.setAttribute("content", s.metaDesc);
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (s[key] != null) el.textContent = s[key];
+  });
+
+  document.querySelectorAll("[data-set-lang]").forEach((btn) => {
+    btn.classList.toggle("is-active", btn.getAttribute("data-set-lang") === lang);
+  });
 }
+
+function categoryLabel(key) {
+  return strings[lang].categories[key] || key;
+}
+
+function renderFeatured() {
+  if (!featuredGrid) return;
+  featuredGrid.innerHTML = content.featured
+    .map(
+      (item, i) => `
+      <button type="button" class="project-tile" data-open-featured="${item.id}" style="--i:${i}">
+        <img src="${item.image}" alt="${localized(item.title, lang)}" width="1400" height="1000" loading="lazy" />
+        <div class="project-tile__meta">
+          <h3>${localized(item.title, lang)}</h3>
+          <p><span>${categoryLabel(item.category)}</span> · <span>${item.year}</span></p>
+        </div>
+      </button>`
+    )
+    .join("");
+}
+
+function renderGallery() {
+  if (!gallery) return;
+  currentProjects = content.projects;
+  gallery.innerHTML = content.projects
+    .map((project) => {
+      const hidden =
+        activeFilter !== "all" && project.category !== activeFilter
+          ? " is-hidden"
+          : "";
+      return `
+      <article class="gallery-item${hidden}" data-category="${project.category}">
+        <button type="button" class="gallery-item__open" data-open-project="${project.id}">
+          <img src="${project.image}" alt="${localized(project.title, lang)}" width="1200" height="900" loading="lazy" />
+          <div class="gallery-item__caption">
+            <h3>${localized(project.title, lang)}</h3>
+            <p>${categoryLabel(project.category)} · ${project.year}</p>
+          </div>
+        </button>
+      </article>`;
+    })
+    .join("");
+}
+
+function openProject(project) {
+  if (!project || !dialog) return;
+  dialog.querySelector("[data-dialog-title]").textContent = localized(
+    project.title,
+    lang
+  );
+  dialog.querySelector("[data-dialog-category]").textContent = categoryLabel(
+    project.category
+  );
+  dialog.querySelector("[data-dialog-copy]").textContent = localized(
+    project.copy,
+    lang
+  );
+  dialog.querySelector("[data-dialog-material]").textContent = localized(
+    project.material,
+    lang
+  );
+  dialog.querySelector("[data-dialog-finish]").textContent = localized(
+    project.finish,
+    lang
+  );
+  dialog.querySelector("[data-dialog-hardware]").textContent = localized(
+    project.hardware,
+    lang
+  );
+  dialog.querySelector("[data-dialog-style]").textContent = localized(
+    project.style,
+    lang
+  );
+
+  const before = dialog.querySelector("[data-dialog-before]");
+  const after = dialog.querySelector("[data-dialog-after]");
+  const mainImage = project.after || project.image;
+  after.src = mainImage;
+  before.src = project.before || mainImage;
+  before.style.clipPath = "inset(0 50% 0 0)";
+  dialog.querySelector("[data-ba-range]").value = "50";
+
+  const macros = dialog.querySelector("[data-dialog-macros]");
+  const shots = (project.macros || []).filter(Boolean);
+  macros.innerHTML = shots
+    .map(
+      (src, index) =>
+        `<img src="${src}" alt="" width="600" height="600" loading="lazy" />`
+    )
+    .join("");
+  macros.hidden = shots.length === 0;
+
+  dialog.showModal();
+}
+
+function findProject(id) {
+  return content.projects.find((p) => p.id === id);
+}
+
+function renderAll() {
+  const hero = document.querySelector("[data-hero-image]");
+  if (hero) hero.src = content.heroImage;
+  applyStrings();
+  renderFeatured();
+  renderGallery();
+}
+
+document.querySelectorAll("[data-set-lang]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    lang = btn.getAttribute("data-set-lang");
+    localStorage.setItem(LANG_KEY, lang);
+    renderAll();
+  });
+});
 
 window.addEventListener(
   "scroll",
-  () => {
-    header?.classList.toggle("is-scrolled", window.scrollY > 24);
-  },
+  () => header?.classList.toggle("is-scrolled", window.scrollY > 24),
   { passive: true }
 );
 
@@ -154,73 +179,34 @@ mobileNav?.querySelectorAll("a").forEach((link) => {
 filters?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-filter]");
   if (!button) return;
-
-  const value = button.dataset.filter;
+  activeFilter = button.dataset.filter;
   filters.querySelectorAll(".filter").forEach((el) => {
-    const active = el === button;
-    el.classList.toggle("is-active", active);
-    el.setAttribute("aria-selected", String(active));
+    el.classList.toggle("is-active", el === button);
   });
-
   gallery?.querySelectorAll(".gallery-item").forEach((item) => {
-    const match = value === "all" || item.dataset.category === value;
+    const match =
+      activeFilter === "all" || item.dataset.category === activeFilter;
     item.classList.toggle("is-hidden", !match);
   });
 });
 
-function fillDialog(key) {
-  const project = projects[key];
-  if (!project || !dialog) return;
-
-  dialog.querySelector("[data-dialog-title]").textContent = project.title;
-  dialog.querySelector("[data-dialog-category]").textContent = project.category;
-  dialog.querySelector("[data-dialog-copy]").textContent = project.copy;
-  dialog.querySelector("[data-dialog-material]").textContent = project.material;
-  dialog.querySelector("[data-dialog-finish]").textContent = project.finish;
-  dialog.querySelector("[data-dialog-hardware]").textContent = project.hardware;
-  dialog.querySelector("[data-dialog-style]").textContent = project.style;
-
-  const before = dialog.querySelector("[data-dialog-before]");
-  const after = dialog.querySelector("[data-dialog-after]");
-  before.src = project.before;
-  after.src = project.after;
-
-  const macros = dialog.querySelector("[data-dialog-macros]");
-  macros.innerHTML = project.macros
-    .map(
-      (src, index) =>
-        `<img src="${src}" alt="Macro detail ${index + 1} of ${project.title}" width="600" height="600" loading="lazy" />`
-    )
-    .join("");
-
-  const range = dialog.querySelector("[data-ba-range]");
-  range.value = "50";
-  before.style.clipPath = "inset(0 50% 0 0)";
-}
-
-gallery?.addEventListener("click", (event) => {
-  const trigger = event.target.closest("[data-open]");
-  if (!trigger) return;
-  fillDialog(trigger.dataset.open);
-  dialog?.showModal();
+featuredGrid?.addEventListener("click", (event) => {
+  const btn = event.target.closest("[data-open-featured]");
+  if (!btn) return;
+  const featured = content.featured.find(
+    (f) => f.id === btn.getAttribute("data-open-featured")
+  );
+  if (!featured) return;
+  const match =
+    content.projects.find((p) => p.category === featured.category) ||
+    content.projects[0];
+  if (match) openProject({ ...match, image: featured.image, after: featured.image });
 });
 
-document.querySelectorAll(".project-tile").forEach((tile) => {
-  tile.addEventListener("click", (event) => {
-    const href = tile.getAttribute("href");
-    if (!href?.startsWith("#project-")) return;
-    event.preventDefault();
-    const map = {
-      "#project-kitchen": "kitchen",
-      "#project-closet": "closet",
-      "#project-cladding": "cladding",
-      "#project-hidden": "furniture",
-    };
-    const key = map[href];
-    if (!key) return;
-    fillDialog(key);
-    dialog?.showModal();
-  });
+gallery?.addEventListener("click", (event) => {
+  const btn = event.target.closest("[data-open-project]");
+  if (!btn) return;
+  openProject(findProject(btn.getAttribute("data-open-project")));
 });
 
 dialog?.querySelector("[data-dialog-close]")?.addEventListener("click", () => {
@@ -239,8 +225,9 @@ dialog?.addEventListener("click", (event) => {
 
 dialog?.querySelector("[data-ba-range]")?.addEventListener("input", (event) => {
   const value = event.target.value;
-  const before = dialog.querySelector("[data-dialog-before]");
-  before.style.clipPath = `inset(0 ${100 - value}% 0 0)`;
+  dialog.querySelector(
+    "[data-dialog-before]"
+  ).style.clipPath = `inset(0 ${100 - value}% 0 0)`;
 });
 
 if (timeline && "IntersectionObserver" in window) {
@@ -264,20 +251,25 @@ form?.addEventListener("submit", (event) => {
   event.preventDefault();
   const required = form.querySelectorAll("[required]");
   let valid = true;
-
   required.forEach((field) => {
     const ok = Boolean(String(field.value || "").trim());
     field.classList.toggle("is-invalid", !ok);
     if (!ok) valid = false;
   });
-
   if (!valid) {
-    formStatus.textContent = "Please complete the required fields.";
+    formStatus.textContent = strings[lang].formError;
     return;
   }
-
-  formStatus.textContent =
-    "Thank you — your consultation request has been noted. We will be in touch shortly.";
+  formStatus.textContent = strings[lang].formOk;
   form.reset();
   required.forEach((field) => field.classList.remove("is-invalid"));
 });
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "meridian-content-v1") {
+    content = loadContent();
+    renderAll();
+  }
+});
+
+renderAll();
