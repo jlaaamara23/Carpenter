@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: meridian-joinery
+    runtime: static
+    repo: https://github.com/jlaaamara23/Carpenter
+    branch: cursor/luxury-carpentry-landing-209e
+    buildCommand: ""
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
