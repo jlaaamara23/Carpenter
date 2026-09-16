@@ -60,6 +60,7 @@
           <button type="button" class="admin-tabs__btn is-active" data-tab="hero" data-admin="tabHero"></button>
           <button type="button" class="admin-tabs__btn" data-tab="projects" data-admin="tabProjects"></button>
           <button type="button" class="admin-tabs__btn" data-tab="featured" data-admin="tabFeatured"></button>
+          <button type="button" class="admin-tabs__btn" data-tab="location" data-admin="tabLocation"></button>
           <button type="button" class="admin-tabs__btn" data-tab="backup" data-admin="tabBackup"></button>
         </nav>
 
@@ -111,6 +112,36 @@
             </div>
             <div class="admin-list" data-featured-list></div>
             <p class="admin-empty" data-empty-featured hidden data-admin="emptyFeatured"></p>
+          </article>
+        </section>
+
+        <section class="admin-panel" data-panel="location">
+          <article class="admin-card">
+            <h2 data-admin="locationSection"></h2>
+            <ol class="admin-steps" data-admin-steps>
+              <li data-admin="mapStep1"></li>
+              <li data-admin="mapStep2"></li>
+              <li data-admin="mapStep3"></li>
+              <li data-admin="mapStep4"></li>
+            </ol>
+            <form class="admin-map-form" data-map-form>
+              <div class="field">
+                <label data-admin="mapLinkLabel"></label>
+                <input
+                  name="mapInput"
+                  type="url"
+                  inputmode="url"
+                  placeholder="https://maps.google.com/... או 32.75, 35.34"
+                  data-map-input
+                  required
+                />
+                <p class="field__hint" data-admin="mapLinkHint"></p>
+              </div>
+              <button class="btn btn--primary" type="submit" data-admin="saveMap"></button>
+            </form>
+            <div class="map admin-map-preview">
+              <iframe title="map preview" data-map-preview loading="lazy" src=""></iframe>
+            </div>
           </article>
         </section>
 

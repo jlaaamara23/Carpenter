@@ -4,6 +4,8 @@ const LANG_KEY = "meridian-lang";
 const defaultContent = {
   heroImage:
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=85",
+  mapEmbed:
+    "https://maps.google.com/maps?q=Salah%20al-Din%2024%2C%20Kafr%20Kanna&t=&z=16&ie=UTF8&iwloc=&output=embed",
   featured: [
     {
       id: "f1",
@@ -377,7 +379,10 @@ function loadContent() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return structuredClone(defaultContent);
-    return { ...structuredClone(defaultContent), ...JSON.parse(raw) };
+    return {
+      ...structuredClone(defaultContent),
+      ...JSON.parse(raw),
+    };
   } catch {
     return structuredClone(defaultContent);
   }
@@ -411,6 +416,40 @@ async function compressImage(file, maxWidth = 1600, quality = 0.82) {
   return canvas.toDataURL("image/jpeg", quality);
 }
 
+function toMapEmbed(input) {
+  const raw = String(input || "").trim();
+  if (!raw) return "";
+
+  if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(raw)) {
+    const [lat, lng] = raw.split(",").map((part) => part.trim());
+    return `https://maps.google.com/maps?q=${lat},${lng}&z=17&output=embed`;
+  }
+
+  if (raw.includes("output=embed") || raw.includes("/maps/embed")) {
+    return raw;
+  }
+
+  try {
+    const url = new URL(raw);
+    const at = raw.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+    if (at) {
+      return `https://maps.google.com/maps?q=${at[1]},${at[2]}&z=17&output=embed`;
+    }
+    const q = url.searchParams.get("q");
+    if (q) {
+      return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=17&output=embed`;
+    }
+    const query = url.searchParams.get("query");
+    if (query) {
+      return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=17&output=embed`;
+    }
+  } catch {
+    /* ignore */
+  }
+
+  return `https://maps.google.com/maps?q=${encodeURIComponent(raw)}&z=17&output=embed`;
+}
+
 export {
   STORAGE_KEY,
   LANG_KEY,
@@ -421,4 +460,5 @@ export {
   t,
   localized,
   compressImage,
+  toMapEmbed,
 };

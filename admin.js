@@ -5,6 +5,7 @@ import {
   saveContent,
   compressImage,
   localized,
+  toMapEmbed,
 } from "./i18n.js";
 
 /** SHA-256 of the admin password — plaintext is never stored in the page. */
@@ -27,6 +28,7 @@ const adminCopy = {
     tabHero: "פתיחה",
     tabProjects: "גלריה",
     tabFeatured: "מובילים",
+    tabLocation: "מיקום",
     tabBackup: "גיבוי",
     heroSection: "תמונת פתיחה",
     heroHint: "גררו תמונה לכאן, בחרו מהגלריה, או צלמו מהטלפון.",
@@ -41,6 +43,15 @@ const adminCopy = {
     addFeatured: "+ פריט מוביל",
     emptyProjects: "אין פרויקטים עדיין — הוסיפו את הראשון.",
     emptyFeatured: "אין פריטים מובילים עדיין.",
+    locationSection: "מיקום מדויק ב־Google Maps",
+    mapStep1: "פתחו Google Maps בטלפון או במחשב.",
+    mapStep2: "לחצו לחיצה ארוכה על הנקודה המדויקת של המנגריה (או חפשו וסמנו את הכתובת).",
+    mapStep3: "לחצו «שתף» / Share והעתיקו את הקישור.",
+    mapStep4: "הדביקו כאן את הקישור (או קואורדינטות כמו 32.75, 35.34) ושמרו.",
+    mapLinkLabel: "קישור Google Maps או קואורדינטות",
+    mapLinkHint: "אפשר גם קישור מלא מ־Google Maps, או lat,lng מהסיכה.",
+    saveMap: "שמירת מיקום",
+    toastMap: "המיקום במפה עודכן",
     backupSection: "גיבוי ושחזור",
     persistNote:
       "התמונות נשמרות בדפדפן במכשיר זה. מומלץ לייצא גיבוי אחרי שינויים חשובים.",
@@ -93,6 +104,7 @@ const adminCopy = {
     tabHero: "الواجهة",
     tabProjects: "المعرض",
     tabFeatured: "مميزة",
+    tabLocation: "الموقع",
     tabBackup: "نسخ احتياطي",
     heroSection: "صورة الواجهة",
     heroHint: "اسحبوا صورة هنا، أو اختاروا من المعرض، أو صوّروا من الهاتف.",
@@ -107,6 +119,15 @@ const adminCopy = {
     addFeatured: "+ عنصر مميز",
     emptyProjects: "لا مشاريع بعد — أضيفوا الأول.",
     emptyFeatured: "لا عناصر مميزة بعد.",
+    locationSection: "موقع دقيق في Google Maps",
+    mapStep1: "افتحوا Google Maps على الهاتف أو الحاسوب.",
+    mapStep2: "اضغطوا مطولاً على نقطة المنجرة الدقيقة (أو ابحثوا وحددوا العنوان).",
+    mapStep3: "اضغطوا «مشاركة» / Share وانسخوا الرابط.",
+    mapStep4: "الصقوا الرابط هنا (أو الإحداثيات مثل 32.75, 35.34) ثم احفظوا.",
+    mapLinkLabel: "رابط Google Maps أو الإحداثيات",
+    mapLinkHint: "يمكن رابط Maps كامل أو lat,lng من الدبوس.",
+    saveMap: "حفظ الموقع",
+    toastMap: "تم تحديث الموقع على الخريطة",
     backupSection: "نسخ احتياطي واستعادة",
     persistNote:
       "تُحفظ الصور في متصفح هذا الجهاز. يُفضّل تصدير نسخة بعد التغييرات المهمة.",
@@ -262,6 +283,10 @@ function render() {
   renderStats();
   const heroPreview = document.querySelector("[data-hero-preview]");
   if (heroPreview) heroPreview.src = content.heroImage || "";
+  const mapPreview = document.querySelector("[data-map-preview]");
+  const mapInput = document.querySelector("[data-map-input]");
+  if (mapPreview && content.mapEmbed) mapPreview.src = content.mapEmbed;
+  if (mapInput && !mapInput.value) mapInput.value = content.mapEmbed || "";
   renderList(
     document.querySelector("[data-project-list]"),
     content.projects,
@@ -480,6 +505,17 @@ form?.addEventListener("submit", (event) => {
 
   persist("toastSaved");
   dialog.close();
+});
+
+document.querySelector("[data-map-form]")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const input = String(new FormData(event.target).get("mapInput") || "").trim();
+  const embed = toMapEmbed(input);
+  if (!embed) return;
+  content.mapEmbed = embed;
+  const preview = document.querySelector("[data-map-preview]");
+  if (preview) preview.src = embed;
+  persist("toastMap");
 });
 
 document.querySelector("[data-export]")?.addEventListener("click", () => {

@@ -144,6 +144,8 @@ function findProject(id) {
 function renderAll() {
   const hero = document.querySelector("[data-hero-image]");
   if (hero) hero.src = content.heroImage;
+  const map = document.querySelector("[data-map-frame]");
+  if (map && content.mapEmbed) map.src = content.mapEmbed;
   applyStrings();
   renderFeatured();
   renderGallery();
