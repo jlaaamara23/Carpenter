@@ -249,9 +249,10 @@ if (timeline && "IntersectionObserver" in window) {
   timeline?.classList.add("is-visible");
 }
 
-form?.addEventListener("submit", (event) => {
+form?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const required = form.querySelectorAll("[required]");
+  const submitBtn = form.querySelector('[type="submit"]');
   let valid = true;
   required.forEach((field) => {
     const ok = Boolean(String(field.value || "").trim());
@@ -262,9 +263,34 @@ form?.addEventListener("submit", (event) => {
     formStatus.textContent = strings[lang].formError;
     return;
   }
-  formStatus.textContent = strings[lang].formOk;
-  form.reset();
-  required.forEach((field) => field.classList.remove("is-invalid"));
+
+  const honey = form.querySelector('[name="_honey"]');
+  if (honey?.value) return;
+
+  formStatus.textContent = strings[lang].formSending;
+  if (submitBtn) submitBtn.disabled = true;
+
+  const payload = new FormData(form);
+  payload.delete("_honey");
+
+  try {
+    const response = await fetch(
+      "https://formsubmit.co/ajax/jlaa.amarajlaa@gmail.com",
+      {
+        method: "POST",
+        body: payload,
+        headers: { Accept: "application/json" },
+      }
+    );
+    if (!response.ok) throw new Error("send failed");
+    formStatus.textContent = strings[lang].formOk;
+    form.reset();
+    required.forEach((field) => field.classList.remove("is-invalid"));
+  } catch {
+    formStatus.textContent = strings[lang].formFail;
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+  }
 });
 
 window.addEventListener("storage", (event) => {

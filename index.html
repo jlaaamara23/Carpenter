@@ -264,6 +264,10 @@
           </div>
 
           <form class="consult-form" data-form novalidate>
+            <input type="hidden" name="_subject" value="בקשת ייעוץ חדשה — נגריית טאלב אמארה" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" value="" class="sr-only" tabindex="-1" autocomplete="off" />
             <div class="field">
               <label for="name" data-i18n="labelName"></label>
               <input id="name" name="name" type="text" autocomplete="name" required />
@@ -278,19 +282,19 @@
             </div>
             <div class="field">
               <label for="type" data-i18n="labelType"></label>
-              <select id="type" name="type" required>
+              <select id="type" name="project_type" required>
                 <option value="" data-i18n="typePlaceholder"></option>
-                <option value="kitchen" data-i18n="typeKitchen"></option>
-                <option value="wardrobe" data-i18n="typeWardrobe"></option>
-                <option value="cladding" data-i18n="typeCladding"></option>
-                <option value="office" data-i18n="typeOffice"></option>
-                <option value="furniture" data-i18n="typeFurniture"></option>
-                <option value="other" data-i18n="typeOther"></option>
+                <option value="מטבח בהתאמה / مطبخ مخصص" data-i18n="typeKitchen"></option>
+                <option value="ארון / חדר הלבשה / خزانة" data-i18n="typeWardrobe"></option>
+                <option value="חיפוי קיר / יחידת TV" data-i18n="typeCladding"></option>
+                <option value="משרד ומסחרי / مكاتب" data-i18n="typeOffice"></option>
+                <option value="רהיט מותאם / أثاث مخصص" data-i18n="typeFurniture"></option>
+                <option value="אחר / آخر" data-i18n="typeOther"></option>
               </select>
             </div>
             <div class="field">
               <label for="files" data-i18n="labelFiles"></label>
-              <input id="files" name="files" type="file" accept="image/*,.pdf" multiple />
+              <input id="files" name="attachment" type="file" accept="image/*,.pdf" multiple />
               <p class="field__hint" data-i18n="fileHint"></p>
             </div>
             <div class="field">
