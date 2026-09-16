@@ -420,8 +420,13 @@ function toMapEmbed(input) {
   const raw = String(input || "").trim();
   if (!raw) return "";
 
-  if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(raw)) {
-    const [lat, lng] = raw.split(",").map((part) => part.trim());
+  const coords = raw
+    .replace(/[()\[\]]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (/^-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?$/.test(coords)) {
+    const [lat, lng] = coords.split(",").map((part) => part.trim());
     return `https://maps.google.com/maps?q=${lat},${lng}&z=17&output=embed`;
   }
 
