@@ -1,20 +1,22 @@
-# Meridian Joinery
+# מרידיאן נגרייה / ميريديان للنجارة
 
-High-end luxury carpentry portfolio landing page — bespoke kitchens, walk-in closets, and architectural woodwork. Portfolio only; no prices or e-commerce.
+אתר תיק עבודות יוקרתי לנגרות בהתאמה אישית — עברית וערבית בלבד. ללא מחירים.
 
-## Run locally
+## הרצה מקומית
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Open [http://localhost:8080](http://localhost:8080).
+## ניהול תמונות
 
-## Deploy on Render
+1. פתחו `/admin.html`
+2. סיסמה: `meridian`
+3. העלו תמונת פתיחה, הוסיפו/ערכו פרויקטים עם תמונות מהטלפון או מהמחשב
+4. השינויים נשמרים בדפדפן במכשיר שלכם ומוצגים מיד באתר
 
-1. New → **Static Site**
-2. Connect this repo and select the branch
-3. **Build command:** leave empty
-4. **Publish directory:** `.`
+## Deploy ב־Render
 
-Or use the included `render.yaml` Blueprint.
+- Static Site
+- Build: ריק
+- Publish directory: `./`
