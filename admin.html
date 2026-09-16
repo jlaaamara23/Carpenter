@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ניהול תמונות | إدارة الصور — طالب اماره</title>
+    <title>ניהול | إدارة — طالب اماره</title>
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,167 +14,235 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="admin-page">
-    <header class="admin-bar">
-      <a href="index.html">← חזרה לאתר / العودة للموقع</a>
-      <div class="lang-switch" role="group">
-        <button type="button" class="lang-switch__btn is-active" data-set-lang="he">עברית</button>
-        <button type="button" class="lang-switch__btn" data-set-lang="ar">العربية</button>
+    <header class="admin-bar" data-bar hidden>
+      <a class="admin-bar__back" href="index.html" data-admin="backSite"></a>
+      <div class="admin-bar__tools">
+        <div class="lang-switch" role="group">
+          <button type="button" class="lang-switch__btn is-active" data-set-lang="he">עברית</button>
+          <button type="button" class="lang-switch__btn" data-set-lang="ar">العربية</button>
+        </div>
+        <button type="button" class="btn btn--ghost admin-bar__logout" data-logout data-admin="logout"></button>
       </div>
     </header>
 
     <main class="admin-wrap">
-      <section class="admin-card" data-gate>
-        <h1 data-admin="loginTitle">כניסה לניהול</h1>
-        <p data-admin="loginHint">סיסמה ברירת מחדל: <code>meridian</code></p>
+      <section class="admin-login-card" data-gate>
+        <div class="admin-login-card__mark" aria-hidden="true"></div>
+        <p class="eyebrow" data-admin="loginBrand"></p>
+        <h1 data-admin="loginTitle"></h1>
+        <p class="admin-login-card__lede" data-admin="loginLede"></p>
         <form class="admin-login" data-login>
           <label>
-            <span data-admin="passwordLabel">סיסמה</span>
-            <input type="password" name="password" autocomplete="current-password" required />
+            <span data-admin="passwordLabel"></span>
+            <input
+              type="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              inputmode="text"
+            />
           </label>
-          <button class="btn btn--primary" type="submit" data-admin="loginBtn">כניסה</button>
-          <p class="form-status" data-login-status></p>
+          <button class="btn btn--primary" type="submit" data-admin="loginBtn"></button>
+          <p class="form-status" data-login-status role="status" aria-live="polite"></p>
         </form>
       </section>
 
       <div class="admin-app" data-app hidden>
         <header class="admin-hero">
-          <h1 data-admin="title">ניהול תמונות ופרויקטים</h1>
-          <p data-admin="subtitle">
-            העלו תמונות מהטלפון או מהמחשב. השינויים נשמרים במכשיר זה ומוצגים באתר מיד.
-          </p>
+          <div>
+            <h1 data-admin="title"></h1>
+            <p data-admin="subtitle"></p>
+          </div>
+          <div class="admin-stats" data-stats></div>
         </header>
 
-        <section class="admin-card">
-          <h2 data-admin="heroSection">תמונת פתיחה (Hero)</h2>
-          <div class="admin-hero-preview">
-            <img data-hero-preview src="" alt="" />
-          </div>
-          <label class="btn btn--ghost file-btn">
-            <span data-admin="uploadHero">העלאת תמונת פתיחה</span>
-            <input type="file" accept="image/*" data-hero-file hidden />
-          </label>
+        <nav class="admin-tabs" data-tabs>
+          <button type="button" class="admin-tabs__btn is-active" data-tab="hero" data-admin="tabHero"></button>
+          <button type="button" class="admin-tabs__btn" data-tab="projects" data-admin="tabProjects"></button>
+          <button type="button" class="admin-tabs__btn" data-tab="featured" data-admin="tabFeatured"></button>
+          <button type="button" class="admin-tabs__btn" data-tab="backup" data-admin="tabBackup"></button>
+        </nav>
+
+        <section class="admin-panel is-active" data-panel="hero">
+          <article class="admin-card">
+            <h2 data-admin="heroSection"></h2>
+            <p class="admin-card__hint" data-admin="heroHint"></p>
+            <div class="admin-drop" data-drop="hero">
+              <img data-hero-preview src="" alt="" />
+              <div class="admin-drop__overlay">
+                <p data-admin="dropHint"></p>
+                <div class="admin-drop__actions">
+                  <label class="btn btn--primary file-btn">
+                    <span data-admin="uploadHero"></span>
+                    <input type="file" accept="image/*" data-hero-file hidden />
+                  </label>
+                  <label class="btn btn--ghost file-btn">
+                    <span data-admin="cameraHero"></span>
+                    <input type="file" accept="image/*" capture="environment" data-hero-camera hidden />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </article>
         </section>
 
-        <section class="admin-card">
-          <div class="admin-card__head">
-            <h2 data-admin="projectsSection">פרויקטים בגלריה</h2>
-            <button type="button" class="btn btn--primary" data-add-project data-admin="addProject">
-              + פרויקט חדש
-            </button>
-          </div>
-          <div class="admin-list" data-project-list></div>
+        <section class="admin-panel" data-panel="projects">
+          <article class="admin-card">
+            <div class="admin-card__head">
+              <div>
+                <h2 data-admin="projectsSection"></h2>
+                <p class="admin-card__hint" data-admin="projectsHint"></p>
+              </div>
+              <button type="button" class="btn btn--primary" data-add-project data-admin="addProject"></button>
+            </div>
+            <div class="admin-list" data-project-list></div>
+            <p class="admin-empty" data-empty-projects hidden data-admin="emptyProjects"></p>
+          </article>
         </section>
 
-        <section class="admin-card">
-          <div class="admin-card__head">
-            <h2 data-admin="featuredSection">פרויקטים מובילים</h2>
-            <button type="button" class="btn btn--ghost" data-add-featured data-admin="addFeatured">
-              + פריט מוביל
-            </button>
-          </div>
-          <div class="admin-list" data-featured-list></div>
+        <section class="admin-panel" data-panel="featured">
+          <article class="admin-card">
+            <div class="admin-card__head">
+              <div>
+                <h2 data-admin="featuredSection"></h2>
+                <p class="admin-card__hint" data-admin="featuredHint"></p>
+              </div>
+              <button type="button" class="btn btn--primary" data-add-featured data-admin="addFeatured"></button>
+            </div>
+            <div class="admin-list" data-featured-list></div>
+            <p class="admin-empty" data-empty-featured hidden data-admin="emptyFeatured"></p>
+          </article>
         </section>
 
-        <section class="admin-card admin-actions">
-          <button type="button" class="btn btn--ghost" data-export data-admin="exportBtn">
-            ייצוא גיבוי
-          </button>
-          <label class="btn btn--ghost file-btn">
-            <span data-admin="importBtn">ייבוא גיבוי</span>
-            <input type="file" accept="application/json,.json" data-import hidden />
-          </label>
-          <button type="button" class="btn btn--ghost" data-reset data-admin="resetBtn">
-            איפוס לברירת מחדל
-          </button>
-          <p class="admin-note" data-admin="persistNote"></p>
+        <section class="admin-panel" data-panel="backup">
+          <article class="admin-card">
+            <h2 data-admin="backupSection"></h2>
+            <p class="admin-card__hint" data-admin="persistNote"></p>
+            <div class="admin-actions">
+              <button type="button" class="btn btn--primary" data-export data-admin="exportBtn"></button>
+              <label class="btn btn--ghost file-btn">
+                <span data-admin="importBtn"></span>
+                <input type="file" accept="application/json,.json" data-import hidden />
+              </label>
+              <a class="btn btn--ghost" href="index.html" target="_blank" rel="noopener" data-admin="previewSite"></a>
+            </div>
+          </article>
+          <article class="admin-card admin-card--danger">
+            <h2 data-admin="dangerTitle"></h2>
+            <p class="admin-card__hint" data-admin="dangerHint"></p>
+            <button type="button" class="btn btn--danger" data-reset data-admin="resetBtn"></button>
+          </article>
         </section>
       </div>
     </main>
 
     <dialog class="admin-dialog" data-edit-dialog>
       <form class="admin-edit" data-edit-form>
-        <h2 data-admin="editTitle">עריכת פרויקט</h2>
+        <div class="admin-edit__head">
+          <h2 data-admin="editTitle"></h2>
+          <button type="button" class="admin-dialog__x" data-cancel aria-label="Close">×</button>
+        </div>
         <input type="hidden" name="id" />
         <input type="hidden" name="kind" />
 
-        <div class="field">
-          <label data-admin="titleHe">כותרת בעברית</label>
-          <input name="titleHe" required />
-        </div>
-        <div class="field">
-          <label data-admin="titleAr">العنوان بالعربية</label>
-          <input name="titleAr" required />
-        </div>
-        <div class="field">
-          <label data-admin="yearLabel">שנה / السنة</label>
-          <input name="year" required />
-        </div>
-        <div class="field">
-          <label data-admin="categoryLabel">קטגוריה / الفئة</label>
-          <select name="category" required>
-            <option value="kitchens">מטבחים / مطابخ</option>
-            <option value="wardrobes">ארונות / خزائن</option>
-            <option value="cladding">חיפויים / كسوة</option>
-            <option value="office">משרד / مكاتب</option>
-            <option value="furniture">רהיטים / أثاث</option>
-          </select>
+        <div class="admin-edit__grid">
+          <div class="field">
+            <label data-admin="titleHe"></label>
+            <input name="titleHe" required />
+          </div>
+          <div class="field">
+            <label data-admin="titleAr"></label>
+            <input name="titleAr" required />
+          </div>
+          <div class="field">
+            <label data-admin="yearLabel"></label>
+            <input name="year" required />
+          </div>
+          <div class="field">
+            <label data-admin="categoryLabel"></label>
+            <select name="category" required>
+              <option value="kitchens">מטבחים / مطابخ</option>
+              <option value="wardrobes">ארונות / خزائن</option>
+              <option value="cladding">חיפויים / كسوة</option>
+              <option value="office">משרד / مكاتب</option>
+              <option value="furniture">רהיטים / أثاث</option>
+            </select>
+          </div>
         </div>
 
         <div class="admin-project-fields">
-          <div class="field">
-            <label data-admin="copyHe">תיאור בעברית</label>
-            <textarea name="copyHe" rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label data-admin="copyAr">الوصف بالعربية</label>
-            <textarea name="copyAr" rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label data-admin="materialHe">חומר (עברית)</label>
-            <input name="materialHe" />
-          </div>
-          <div class="field">
-            <label data-admin="materialAr">المادة (عربي)</label>
-            <input name="materialAr" />
-          </div>
-          <div class="field">
-            <label data-admin="finishHe">גימור (עברית)</label>
-            <input name="finishHe" />
-          </div>
-          <div class="field">
-            <label data-admin="finishAr">التشطيب (عربي)</label>
-            <input name="finishAr" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label data-admin="mainPhoto">תמונה ראשית</label>
-          <div class="admin-thumb-row">
-            <img data-edit-image src="" alt="" />
-            <label class="btn btn--ghost file-btn">
-              <span data-admin="choosePhoto">בחירת תמונה</span>
-              <input type="file" accept="image/*" name="imageFile" hidden />
-            </label>
+          <div class="admin-edit__grid">
+            <div class="field">
+              <label data-admin="copyHe"></label>
+              <textarea name="copyHe" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label data-admin="copyAr"></label>
+              <textarea name="copyAr" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label data-admin="materialHe"></label>
+              <input name="materialHe" />
+            </div>
+            <div class="field">
+              <label data-admin="materialAr"></label>
+              <input name="materialAr" />
+            </div>
+            <div class="field">
+              <label data-admin="finishHe"></label>
+              <input name="finishHe" />
+            </div>
+            <div class="field">
+              <label data-admin="finishAr"></label>
+              <input name="finishAr" />
+            </div>
           </div>
         </div>
 
-        <div class="admin-project-fields field">
-          <label data-admin="beforePhoto">תמונת לפני (אופציונלי)</label>
-          <div class="admin-thumb-row">
-            <img data-edit-before src="" alt="" />
-            <label class="btn btn--ghost file-btn">
-              <span data-admin="choosePhoto">בחירת תמונה</span>
-              <input type="file" accept="image/*" name="beforeFile" hidden />
-            </label>
+        <div class="admin-edit__photos">
+          <div class="field">
+            <label data-admin="mainPhoto"></label>
+            <div class="admin-thumb-row">
+              <img data-edit-image src="" alt="" />
+              <div class="admin-drop__actions">
+                <label class="btn btn--ghost file-btn">
+                  <span data-admin="choosePhoto"></span>
+                  <input type="file" accept="image/*" name="imageFile" hidden />
+                </label>
+                <label class="btn btn--ghost file-btn">
+                  <span data-admin="cameraPhoto"></span>
+                  <input type="file" accept="image/*" capture="environment" name="imageCamera" hidden />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-project-fields field">
+            <label data-admin="beforePhoto"></label>
+            <div class="admin-thumb-row">
+              <img data-edit-before src="" alt="" />
+              <div class="admin-drop__actions">
+                <label class="btn btn--ghost file-btn">
+                  <span data-admin="choosePhoto"></span>
+                  <input type="file" accept="image/*" name="beforeFile" hidden />
+                </label>
+                <label class="btn btn--ghost file-btn">
+                  <span data-admin="cameraPhoto"></span>
+                  <input type="file" accept="image/*" capture="environment" name="beforeCamera" hidden />
+                </label>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="admin-dialog__actions">
-          <button type="button" class="btn btn--ghost" data-cancel data-admin="cancel">ביטול</button>
-          <button type="submit" class="btn btn--primary" data-admin="save">שמירה</button>
+          <button type="button" class="btn btn--ghost" data-cancel data-admin="cancel"></button>
+          <button type="submit" class="btn btn--primary" data-admin="save"></button>
         </div>
       </form>
     </dialog>
+
+    <div class="admin-toast" data-toast hidden></div>
 
     <script type="module" src="admin.js"></script>
   </body>
