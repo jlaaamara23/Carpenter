@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: meridian-joinery
+    name: talib-amara-joinery
     runtime: static
     repo: https://github.com/jlaaamara23/Carpenter
     branch: cursor/luxury-carpentry-landing-209e
