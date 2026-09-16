@@ -294,11 +294,20 @@ form?.addEventListener("submit", async (event) => {
   }
 });
 
-window.addEventListener("storage", (event) => {
+window.addEventListener("storage", async (event) => {
   if (event.key === "meridian-content-v1") {
-    content = loadContent();
+    content = await loadContent();
     renderAll();
   }
 });
 
-renderAll();
+async function boot() {
+  try {
+    content = await loadContent();
+  } catch (error) {
+    console.error(error);
+  }
+  renderAll();
+}
+
+boot();
