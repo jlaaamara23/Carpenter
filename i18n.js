@@ -379,21 +379,82 @@ const strings = {
   },
 };
 
-function loadContent() {
+const DB_NAME = "talib-amara-db";
+const DB_STORE = "content";
+const DB_KEY = "site";
+
+function openDb() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, 1);
+    request.onupgradeneeded = () => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains(DB_STORE)) {
+        db.createObjectStore(DB_STORE);
+      }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+function readFromLocalStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return structuredClone(defaultContent);
+    if (!raw) return null;
     return {
       ...structuredClone(defaultContent),
       ...JSON.parse(raw),
     };
   } catch {
-    return structuredClone(defaultContent);
+    return null;
   }
 }
 
-function saveContent(content) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
+async function loadContent() {
+  try {
+    const db = await openDb();
+    const fromDb = await new Promise((resolve, reject) => {
+      const tx = db.transaction(DB_STORE, "readonly");
+      const req = tx.objectStore(DB_STORE).get(DB_KEY);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+    db.close();
+    if (fromDb) {
+      return { ...structuredClone(defaultContent), ...fromDb };
+    }
+  } catch {
+    /* fall through */
+  }
+
+  const fromLs = readFromLocalStorage();
+  if (fromLs) {
+    try {
+      await saveContent(fromLs);
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      /* keep localStorage copy if migration fails */
+    }
+    return fromLs;
+  }
+
+  return structuredClone(defaultContent);
+}
+
+async function saveContent(content) {
+  const db = await openDb();
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction(DB_STORE, "readwrite");
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+    tx.objectStore(DB_STORE).put(content, DB_KEY);
+  });
+  db.close();
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    /* ignore */
+  }
 }
 
 function t(lang, key) {
@@ -406,7 +467,7 @@ function localized(value, lang) {
   return value[lang] || value.he || value.ar || "";
 }
 
-async function compressImage(file, maxWidth = 1600, quality = 0.82) {
+async function compressImage(file, maxWidth = 1200, quality = 0.72) {
   const bitmap = await createImageBitmap(file);
   const scale = Math.min(1, maxWidth / bitmap.width);
   const width = Math.round(bitmap.width * scale);
@@ -417,7 +478,14 @@ async function compressImage(file, maxWidth = 1600, quality = 0.82) {
   const ctx = canvas.getContext("2d");
   ctx.drawImage(bitmap, 0, 0, width, height);
   bitmap.close();
-  return canvas.toDataURL("image/jpeg", quality);
+
+  let q = quality;
+  let dataUrl = canvas.toDataURL("image/jpeg", q);
+  while (dataUrl.length > 900_000 && q > 0.45) {
+    q -= 0.08;
+    dataUrl = canvas.toDataURL("image/jpeg", q);
+  }
+  return dataUrl;
 }
 
 function toMapEmbed(input) {

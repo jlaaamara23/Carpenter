@@ -83,6 +83,9 @@ const adminCopy = {
     confirmReset: "לאפס את כל התוכן והתמונות במכשיר זה?",
     confirmDelete: "למחוק פריט זה?",
     needPhoto: "נא להוסיף תמונה ראשית",
+    needTitles: "נא למלא כותרת בעברית ובערבית",
+    needYear: "נא למלא שנה",
+    saveFailed: "השמירה נכשלה. נסו שוב עם תמונה קטנה יותר.",
     toastSaved: "נשמר בהצלחה",
     toastHero: "תמונת הפתיחה עודכנה",
     toastDeleted: "נמחק",
@@ -159,6 +162,9 @@ const adminCopy = {
     confirmReset: "إعادة ضبط كل المحتوى والصور على هذا الجهاز؟",
     confirmDelete: "حذف هذا العنصر؟",
     needPhoto: "يرجى إضافة صورة رئيسية",
+    needTitles: "يرجى تعبئة العنوان بالعبرية والعربية",
+    needYear: "يرجى إدخال السنة",
+    saveFailed: "فشل الحفظ. حاولوا مجدداً بصورة أصغر.",
     toastSaved: "تم الحفظ بنجاح",
     toastHero: "تم تحديث صورة الواجهة",
     toastDeleted: "تم الحذف",
@@ -169,9 +175,10 @@ const adminCopy = {
 };
 
 let lang = localStorage.getItem(LANG_KEY) || "he";
-let content = loadContent();
+let content = structuredClone(defaultContent);
 let editState = { image: "", before: "" };
 let toastTimer;
+let ready = false;
 
 const gate = document.querySelector("[data-gate]");
 const app = document.querySelector("[data-app]");
@@ -299,10 +306,17 @@ function render() {
   );
 }
 
-function persist(messageKey) {
-  saveContent(content);
-  render();
-  if (messageKey) toast(adminCopy[lang][messageKey]);
+async function persist(messageKey) {
+  try {
+    await saveContent(content);
+    render();
+    if (messageKey) toast(adminCopy[lang][messageKey]);
+    return true;
+  } catch (error) {
+    console.error(error);
+    toast(adminCopy[lang].saveFailed);
+    return false;
+  }
 }
 
 async function setImageFromFile(file, onDone) {
@@ -350,7 +364,7 @@ function onListClick(event) {
     } else {
       content.featured = content.featured.filter((item) => item.id !== id);
     }
-    persist("toastDeleted");
+    void persist("toastDeleted");
   }
 }
 
@@ -407,9 +421,9 @@ document.querySelector("[data-tabs]")?.addEventListener("click", (event) => {
 });
 
 async function handleHeroFile(file) {
-  await setImageFromFile(file, (dataUrl) => {
+  await setImageFromFile(file, async (dataUrl) => {
     content.heroImage = dataUrl;
-    persist("toastHero");
+    await persist("toastHero");
   });
 }
 
@@ -461,22 +475,38 @@ document.querySelectorAll("[data-cancel]").forEach((btn) => {
   btn.addEventListener("click", () => dialog.close());
 });
 
-form?.addEventListener("submit", (event) => {
+form?.addEventListener("submit", async (event) => {
   event.preventDefault();
+  if (!ready) return;
+
+  const titleHe = form.titleHe.value.trim();
+  const titleAr = form.titleAr.value.trim();
+  const yearVal = form.year.value.trim();
+
+  if (!titleHe || !titleAr) {
+    toast(adminCopy[lang].needTitles);
+    form.titleHe.focus();
+    return;
+  }
+  if (!yearVal) {
+    toast(adminCopy[lang].needYear);
+    form.year.focus();
+    return;
+  }
+  if (!editState.image) {
+    toast(adminCopy[lang].needPhoto);
+    return;
+  }
+
   const kind = form.kind.value;
   const id = form.id.value || `${kind[0]}${Date.now()}`;
   const base = {
     id,
-    year: form.year.value.trim(),
+    year: yearVal,
     category: form.category.value,
-    title: { he: form.titleHe.value.trim(), ar: form.titleAr.value.trim() },
+    title: { he: titleHe, ar: titleAr },
     image: editState.image,
   };
-
-  if (!base.image) {
-    alert(adminCopy[lang].needPhoto);
-    return;
-  }
 
   if (kind === "featured") {
     const next = { ...base };
@@ -503,11 +533,11 @@ form?.addEventListener("submit", (event) => {
     else content.projects.push(next);
   }
 
-  persist("toastSaved");
-  dialog.close();
+  const ok = await persist("toastSaved");
+  if (ok) dialog.close();
 });
 
-document.querySelector("[data-map-form]")?.addEventListener("submit", (event) => {
+document.querySelector("[data-map-form]")?.addEventListener("submit", async (event) => {
   event.preventDefault();
   const input = String(new FormData(event.target).get("mapInput") || "").trim();
   const embed = toMapEmbed(input);
@@ -515,7 +545,7 @@ document.querySelector("[data-map-form]")?.addEventListener("submit", (event) =>
   content.mapEmbed = embed;
   const preview = document.querySelector("[data-map-preview]");
   if (preview) preview.src = embed;
-  persist("toastMap");
+  await persist("toastMap");
 });
 
 document.querySelector("[data-export]")?.addEventListener("click", () => {
@@ -535,22 +565,36 @@ document.querySelector("[data-import]")?.addEventListener("change", async (event
   const file = event.target.files?.[0];
   if (!file) return;
   try {
-    content = JSON.parse(await file.text());
-    persist("toastImported");
+    content = {
+      ...structuredClone(defaultContent),
+      ...JSON.parse(await file.text()),
+    };
+    await persist("toastImported");
   } catch {
     alert("JSON error");
   }
   event.target.value = "";
 });
 
-document.querySelector("[data-reset]")?.addEventListener("click", () => {
+document.querySelector("[data-reset]")?.addEventListener("click", async () => {
   if (!confirm(adminCopy[lang].confirmReset)) return;
   content = structuredClone(defaultContent);
-  persist("toastReset");
+  await persist("toastReset");
 });
 
-if (sessionStorage.getItem(SESSION_KEY) === "1") unlock();
-else {
-  bar.hidden = true;
-  applyAdminLang();
+async function boot() {
+  try {
+    content = await loadContent();
+  } catch (error) {
+    console.error(error);
+    content = structuredClone(defaultContent);
+  }
+  ready = true;
+  if (sessionStorage.getItem(SESSION_KEY) === "1") unlock();
+  else {
+    bar.hidden = true;
+    applyAdminLang();
+  }
 }
+
+boot();

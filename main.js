@@ -3,6 +3,7 @@ import {
   loadContent,
   strings,
   localized,
+  defaultContent,
 } from "./i18n.js";
 
 const header = document.querySelector("[data-header]");
@@ -18,7 +19,7 @@ const formStatus = document.querySelector("[data-form-status]");
 const year = document.querySelector("[data-year]");
 
 let lang = localStorage.getItem(LANG_KEY) || "he";
-let content = loadContent();
+let content = structuredClone(defaultContent);
 let activeFilter = "all";
 let currentProjects = [];
 
