@@ -962,11 +962,15 @@ p {
   gap: var(--space-5);
 }
 
-.consult__meta {
-  display: grid;
-  gap: var(--space-4);
-  color: var(--ink-soft);
-  font-size: 0.95rem;
+.consult__phone a {
+  color: var(--oak-300);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.consult__phone a:hover,
+.consult__phone a:focus-visible {
+  color: var(--oak-200);
 }
 
 .consult__meta strong {
