@@ -5,7 +5,7 @@ const defaultContent = {
   heroImage:
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=85",
   mapEmbed:
-    "https://maps.google.com/maps?q=Salah%20al-Din%2024%2C%20Kafr%20Kanna&t=&z=16&ie=UTF8&iwloc=&output=embed",
+    "https://maps.google.com/maps?q=32.748556,35.335722&z=17&output=embed",
   featured: [
     {
       id: "f1",
