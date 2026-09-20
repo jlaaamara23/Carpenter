@@ -1,6 +1,6 @@
 import {
   LANG_KEY,
-  loadContent,
+  loadPublishedContent,
   strings,
   localized,
   defaultContent,
@@ -296,14 +296,14 @@ form?.addEventListener("submit", async (event) => {
 
 window.addEventListener("storage", async (event) => {
   if (event.key === "meridian-content-v1") {
-    content = await loadContent();
+    content = await loadPublishedContent();
     renderAll();
   }
 });
 
 async function boot() {
   try {
-    content = await loadContent();
+    content = await loadPublishedContent();
   } catch (error) {
     console.error(error);
   }

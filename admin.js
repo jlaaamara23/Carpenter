@@ -1,7 +1,7 @@
 import {
   LANG_KEY,
   defaultContent,
-  loadContent,
+  loadDraftContent,
   saveContent,
   compressImage,
   localized,
@@ -12,6 +12,10 @@ import {
 const ADMIN_PASS_HASH =
   "e38cc25c584060df082861186216db13db06e6bee0d1580341d31dae0053717a";
 const SESSION_KEY = "talib-admin-session";
+const GH_TOKEN_KEY = "talib-gh-token";
+const GH_REPO = "jlaaamara23/Carpenter";
+const GH_PATH = "content.json";
+const GH_BRANCH = "main";
 
 const adminCopy = {
   he: {
@@ -29,7 +33,7 @@ const adminCopy = {
     tabProjects: "גלריה",
     tabFeatured: "מובילים",
     tabLocation: "מיקום",
-    tabBackup: "גיבוי",
+    tabBackup: "פרסום",
     heroSection: "תמונת פתיחה",
     heroHint: "גררו תמונה לכאן, בחרו מהגלריה, או צלמו מהטלפון.",
     dropHint: "שחררו תמונה כאן",
@@ -52,9 +56,24 @@ const adminCopy = {
     mapLinkHint: "אפשר גם קישור מלא מ־Google Maps, או lat,lng מהסיכה.",
     saveMap: "שמירת מיקום",
     toastMap: "המיקום במפה עודכן",
-    backupSection: "גיבוי ושחזור",
+    publishSection: "פרסום לאתר (לכולם)",
+    publishHint:
+      "שמירה רגילה נשמרת רק בטלפון שלכם. כדי שכולם יראו את התמונות והפרויקטים — פרסמו לאתר.",
+    publishStep1: "צרו Token ב־GitHub: Settings → Developer settings → Personal access tokens → Fine-grained.",
+    publishStep2: "תנו הרשאת Contents: Read and write לרפו Carpenter בלבד.",
+    publishStep3: "הדביקו את ה־Token כאן, שמרו אותו, ואז לחצו «פרסום לאתר».",
+    tokenLabel: "GitHub Token",
+    tokenHint: "נשמר רק בטלפון שלכם — לא מוצג באתר.",
+    publishBtn: "פרסום לאתר לכולם",
+    saveTokenBtn: "שמירת Token",
+    publishWorking: "מפרסמים… זה יכול לקחת עד דקה",
+    publishOk: "פורסם! אחרי Deploy ב־Render כולם יראו את העדכון.",
+    publishNeedToken: "נא להדביק ולשמור GitHub Token קודם",
+    publishFail: "הפרסום נכשל. בדקו את ה־Token והרשאות Contents.",
+    toastToken: "ה־Token נשמר בטלפון",
+    backupSection: "גיבוי מקומי",
     persistNote:
-      "התמונות נשמרות בדפדפן במכשיר זה. מומלץ לייצא גיבוי אחרי שינויים חשובים.",
+      "טיוטות נשמרות בטלפון. אחרי שינויים חשובים לחצו «פרסום לאתר» כדי שכולם יראו.",
     exportBtn: "ייצוא גיבוי",
     importBtn: "ייבוא גיבוי",
     previewSite: "תצוגה מקדימה של האתר",
@@ -108,7 +127,7 @@ const adminCopy = {
     tabProjects: "المعرض",
     tabFeatured: "مميزة",
     tabLocation: "الموقع",
-    tabBackup: "نسخ احتياطي",
+    tabBackup: "نشر",
     heroSection: "صورة الواجهة",
     heroHint: "اسحبوا صورة هنا، أو اختاروا من المعرض، أو صوّروا من الهاتف.",
     dropHint: "أفلتوا الصورة هنا",
@@ -131,9 +150,24 @@ const adminCopy = {
     mapLinkHint: "يمكن رابط Maps كامل أو lat,lng من الدبوس.",
     saveMap: "حفظ الموقع",
     toastMap: "تم تحديث الموقع على الخريطة",
-    backupSection: "نسخ احتياطي واستعادة",
+    publishSection: "نشر للموقع (للجميع)",
+    publishHint:
+      "الحفظ العادي يبقى على هاتفكم فقط. ليظهر الجميع الصور والمشاريع — انشروا للموقع.",
+    publishStep1: "أنشئوا Token في GitHub: Settings → Developer settings → Personal access tokens → Fine-grained.",
+    publishStep2: "أعطوا صلاحية Contents: Read and write لمستودع Carpenter فقط.",
+    publishStep3: "الصقوا الـ Token هنا، احفظوه، ثم اضغطوا «نشر للموقع».",
+    tokenLabel: "GitHub Token",
+    tokenHint: "يُحفظ على هاتفكم فقط — لا يظهر في الموقع.",
+    publishBtn: "نشر للموقع للجميع",
+    saveTokenBtn: "حفظ الـ Token",
+    publishWorking: "جاري النشر… قد يستغرق حتى دقيقة",
+    publishOk: "تم النشر! بعد Deploy في Render سيراه الجميع.",
+    publishNeedToken: "يرجى لصق وحفظ GitHub Token أولاً",
+    publishFail: "فشل النشر. تحققوا من الـ Token وصلاحية Contents.",
+    toastToken: "تم حفظ الـ Token على الهاتف",
+    backupSection: "نسخة محلية",
     persistNote:
-      "تُحفظ الصور في متصفح هذا الجهاز. يُفضّل تصدير نسخة بعد التغييرات المهمة.",
+      "المسودات تُحفظ على الهاتف. بعد تغييرات مهمة اضغطوا «نشر للموقع» ليراه الجميع.",
     exportBtn: "تصدير نسخة",
     importBtn: "استيراد نسخة",
     previewSite: "معاينة الموقع",
@@ -207,6 +241,89 @@ function toast(message) {
   }, 2200);
 }
 
+function getToken() {
+  return localStorage.getItem(GH_TOKEN_KEY) || "";
+}
+
+function setToken(value) {
+  const trimmed = String(value || "").trim();
+  if (trimmed) localStorage.setItem(GH_TOKEN_KEY, trimmed);
+  else localStorage.removeItem(GH_TOKEN_KEY);
+}
+
+function toBase64Unicode(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  bytes.forEach((b) => {
+    binary += String.fromCharCode(b);
+  });
+  return btoa(binary);
+}
+
+async function publishToGitHub() {
+  const status = document.querySelector("[data-publish-status]");
+  const btn = document.querySelector("[data-publish]");
+  const token = getToken() || document.querySelector("[data-gh-token]")?.value?.trim();
+  if (!token) {
+    if (status) status.textContent = adminCopy[lang].publishNeedToken;
+    return;
+  }
+  setToken(token);
+  if (status) status.textContent = adminCopy[lang].publishWorking;
+  if (btn) btn.disabled = true;
+
+  try {
+    await saveContent(content);
+    const headers = {
+      Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${token}`,
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+    };
+
+    let sha;
+    const getRes = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/contents/${GH_PATH}?ref=${GH_BRANCH}`,
+      { headers }
+    );
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    } else if (getRes.status !== 404) {
+      throw new Error(`get ${getRes.status}`);
+    }
+
+    const body = {
+      message: "Publish site content from admin",
+      content: toBase64Unicode(JSON.stringify(content, null, 2)),
+      branch: GH_BRANCH,
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(
+      `https://api.github.com/repos/${GH_REPO}/contents/${GH_PATH}`,
+      {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(body),
+      }
+    );
+    if (!putRes.ok) {
+      const errText = await putRes.text();
+      throw new Error(errText || `put ${putRes.status}`);
+    }
+
+    if (status) status.textContent = adminCopy[lang].publishOk;
+    toast(adminCopy[lang].publishOk);
+  } catch (error) {
+    console.error(error);
+    if (status) status.textContent = adminCopy[lang].publishFail;
+    toast(adminCopy[lang].publishFail);
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
 function applyAdminLang() {
   document.documentElement.lang = lang;
   document.documentElement.dir = "rtl";
@@ -219,6 +336,8 @@ function applyAdminLang() {
   document.querySelectorAll("[data-set-lang]").forEach((btn) => {
     btn.classList.toggle("is-active", btn.getAttribute("data-set-lang") === lang);
   });
+  const tokenInput = document.querySelector("[data-gh-token]");
+  if (tokenInput && !tokenInput.value) tokenInput.value = getToken();
 }
 
 function unlock() {
@@ -548,6 +667,16 @@ document.querySelector("[data-map-form]")?.addEventListener("submit", async (eve
   await persist("toastMap");
 });
 
+document.querySelector("[data-save-token]")?.addEventListener("click", () => {
+  const value = document.querySelector("[data-gh-token]")?.value || "";
+  setToken(value);
+  toast(adminCopy[lang].toastToken);
+});
+
+document.querySelector("[data-publish]")?.addEventListener("click", () => {
+  void publishToGitHub();
+});
+
 document.querySelector("[data-export]")?.addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(content, null, 2)], {
     type: "application/json",
@@ -584,7 +713,7 @@ document.querySelector("[data-reset]")?.addEventListener("click", async () => {
 
 async function boot() {
   try {
-    content = await loadContent();
+    content = await loadDraftContent();
   } catch (error) {
     console.error(error);
     content = structuredClone(defaultContent);

@@ -410,7 +410,7 @@ function readFromLocalStorage() {
   }
 }
 
-async function loadContent() {
+async function loadDraftContent() {
   try {
     const db = await openDb();
     const fromDb = await new Promise((resolve, reject) => {
@@ -438,7 +438,26 @@ async function loadContent() {
     return fromLs;
   }
 
-  return structuredClone(defaultContent);
+  return loadPublishedContent();
+}
+
+/** Public site: only the published content.json (same for everyone). */
+async function loadPublishedContent() {
+  try {
+    const response = await fetch(`./content.json?t=${Date.now()}`, {
+      cache: "no-store",
+    });
+    if (!response.ok) throw new Error("missing content.json");
+    const data = await response.json();
+    return { ...structuredClone(defaultContent), ...data };
+  } catch {
+    return structuredClone(defaultContent);
+  }
+}
+
+/** @deprecated use loadDraftContent or loadPublishedContent */
+async function loadContent() {
+  return loadDraftContent();
 }
 
 async function saveContent(content) {
@@ -533,6 +552,8 @@ export {
   defaultContent,
   strings,
   loadContent,
+  loadDraftContent,
+  loadPublishedContent,
   saveContent,
   t,
   localized,

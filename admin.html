@@ -147,11 +147,35 @@
         </section>
 
         <section class="admin-panel" data-panel="backup">
+          <article class="admin-card admin-card--publish">
+            <h2 data-admin="publishSection"></h2>
+            <p class="admin-card__hint" data-admin="publishHint"></p>
+            <ol class="admin-steps">
+              <li data-admin="publishStep1"></li>
+              <li data-admin="publishStep2"></li>
+              <li data-admin="publishStep3"></li>
+            </ol>
+            <div class="field">
+              <label data-admin="tokenLabel"></label>
+              <input
+                type="password"
+                data-gh-token
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <p class="field__hint" data-admin="tokenHint"></p>
+            </div>
+            <div class="admin-actions">
+              <button type="button" class="btn btn--primary" data-publish data-admin="publishBtn"></button>
+              <button type="button" class="btn btn--ghost" data-save-token data-admin="saveTokenBtn"></button>
+            </div>
+            <p class="form-status" data-publish-status role="status" aria-live="polite"></p>
+          </article>
           <article class="admin-card">
             <h2 data-admin="backupSection"></h2>
             <p class="admin-card__hint" data-admin="persistNote"></p>
             <div class="admin-actions">
-              <button type="button" class="btn btn--primary" data-export data-admin="exportBtn"></button>
+              <button type="button" class="btn btn--ghost" data-export data-admin="exportBtn"></button>
               <label class="btn btn--ghost file-btn">
                 <span data-admin="importBtn"></span>
                 <input type="file" accept="application/json,.json" data-import hidden />
